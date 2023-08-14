@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/url"
 	"os"
@@ -21,9 +22,9 @@ func main() {
 	addressPrefix := "re"
 
 	// Get node address from environment variable or default to localhost:26657
-	nodeAddress := os.Getenv("COSMOS_NODE_ADDRESS")
+	nodeAddress := os.Getenv("RE_NODE_ADDRESS")
 	if nodeAddress == "" {
-		nodeAddress = "http://localhost:26657"
+		nodeAddress = "http://0.0.0.0:26657"
 	}
 
 	_, err = url.Parse(nodeAddress)
@@ -46,10 +47,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	addr, err := account.Address(addressPrefix)
+	address, err := account.Address(addressPrefix)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	println(addr)
+	fmt.Println("Account address:", address)
+
 }
