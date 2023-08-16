@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"path/filepath"
 
 	"github.com/ignite/cli/ignite/pkg/cosmosclient"
 	"github.com/joho/godotenv"
@@ -32,14 +33,33 @@ func main() {
 		log.Fatalf("Invalid node address: %s", nodeAddress)
 	}
 
+	// set your home dir for your chain manually
+	home, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	homePath := filepath.Join(home, ".re")
+
+	cosmosOptions := []cosmosclient.Option{
+		cosmosclient.WithHome(homePath),
+		cosmosclient.WithKeyringBackend("test"),
+		// This keyring will request a password each time it is accessed
+		//cosmosclient.WithKeyringBackend("file"),
+		cosmosclient.WithKeyringDir(homePath),
+		cosmosclient.WithAddressPrefix(addressPrefix),
+		cosmosclient.WithNodeAddress(nodeAddress),
+
+	}
+
 	// Create a Re Protocol client instance
-	client, err := cosmosclient.New(ctx, cosmosclient.WithAddressPrefix(addressPrefix), cosmosclient.WithNodeAddress(nodeAddress))
+	client, err := cosmosclient.New(ctx, cosmosOptions...)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Account `alice` was initialized
-	accountName := "alice"
+	accountName := "bob"
 
 	// Get account from the keyring
 	account, err := client.Account(accountName)
@@ -52,6 +72,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Account address:", address)
+	fmt.Println("Account address:", address, account)
 
 }
