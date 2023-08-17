@@ -10,6 +10,9 @@ import (
 
 	"github.com/ignite/cli/ignite/pkg/cosmosclient"
 	"github.com/joho/godotenv"
+
+	// Importing the types package of Re Prtotocol
+	"github.com/jim380/Re/x/fix/types"
 )
 
 func main() {
@@ -39,7 +42,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	homePath := filepath.Join(home, ".re")
+	homePath := filepath.Join(home, ".red")
 
 	cosmosOptions := []cosmosclient.Option{
 		cosmosclient.WithHome(homePath),
@@ -49,7 +52,6 @@ func main() {
 		cosmosclient.WithKeyringDir(homePath),
 		cosmosclient.WithAddressPrefix(addressPrefix),
 		cosmosclient.WithNodeAddress(nodeAddress),
-
 	}
 
 	// Create a Re Protocol client instance
@@ -59,7 +61,7 @@ func main() {
 	}
 
 	// Account `alice` was initialized
-	accountName := "bob"
+	accountName := "alice"
 
 	// Get account from the keyring
 	account, err := client.Account(accountName)
@@ -72,6 +74,40 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Account address:", address, account)
+	fmt.Println("Account address:", address)
+
+	// Define a message to create Account
+	msg := &types.MsgRegisterAccount{
+		Creator:          address,
+		Address:          address,
+		CompanyName:      "dddd",
+		Website:          "pokkdndnd",
+		SocialMediaLinks: "suyyyyy",
+	}
+
+	// Broadcast a transaction from account `alice` with the message
+	// to create a MsgRegisterAccount store response in txResp
+	txResp, err := client.BroadcastTx(ctx, account, msg)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Print response from broadcasting a transaction
+	fmt.Print("MsgRegisterAccount:\n\n")
+	fmt.Println(txResp)
+
+	// Instantiate a query client for your `Re` blockchain
+	queryClient := types.NewQueryClient(client.Context())
+
+	// Query the blockchain using the client's `AccountRegistrationAll` method
+	// to get all accounts store all accounts in queryResp
+	queryResp, err := queryClient.AccountRegistrationAll(ctx, &types.QueryAllAccountRegistrationRequest{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Print response from querying all the accounts
+	fmt.Print("\n\nAccountRegistrationAll:\n\n")
+	fmt.Println(queryResp)
 
 }
