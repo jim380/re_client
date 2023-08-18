@@ -5,6 +5,7 @@ go 1.20
 require github.com/ignite/cli v0.27.1
 
 require (
+	github.com/jim380/Re v0.0.0-20230811111114-c42211de2cc6 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20230530153820-e85fd2cbaebc // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230530153820-e85fd2cbaebc // indirect
 )
@@ -71,7 +72,6 @@ require (
 	github.com/hdevalence/ed25519consensus v0.1.0 // indirect
 	github.com/huandu/skiplist v1.2.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/jim380/Re v0.0.0-20230811111114-c42211de2cc6
 	github.com/jmhodges/levigo v1.0.0 // indirect
 	github.com/joho/godotenv v1.5.1
 	github.com/klauspost/compress v1.16.5 // indirect
