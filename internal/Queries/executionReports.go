@@ -21,14 +21,14 @@ func init() {
 	}
 }
 
-func FetchOrders(address string) (*fixstruct.OrderResponse, error) {
+func FetchExecutionRepots(address string) (*fixstruct.OrdersExecutionReportResponse, error) {
 	// Read API_URL from .env file
-	ordersURL := os.Getenv("ORDERS_URL")
-	if ordersURL == "" {
+	executionReportURL := os.Getenv("EXECUTIONREPORT_URL")
+	if executionReportURL == "" {
 		return nil, errors.New("ORDERS_URL not found in .env file")
 	}
 
-	url := fmt.Sprintf("%s/%s", ordersURL, address)
+	url := fmt.Sprintf("%s/%s", executionReportURL, address)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -40,23 +40,23 @@ func FetchOrders(address string) (*fixstruct.OrderResponse, error) {
 		return nil, err
 	}
 
-	var orders fixstruct.OrderResponse
-	err = json.Unmarshal(body, &orders)
+	var ordersExecutionReports fixstruct.OrdersExecutionReportResponse
+	err = json.Unmarshal(body, &ordersExecutionReports)
 	if err != nil {
 		return nil, err
 	}
 
-	return &orders, nil
+	return &ordersExecutionReports, nil
 }
 
-func FetchAllOrders() (*fixstruct.OrderResponse, error) {
+func FetchAllExecutionRepots() (*fixstruct.OrdersExecutionReportResponse, error) {
 	// Read API_URL from .env file
-	ordersURL := os.Getenv("ORDERS_URL")
-	if ordersURL == "" {
+	executionReportURL := os.Getenv("EXECUTIONREPORT_URL")
+	if executionReportURL == "" {
 		return nil, errors.New("ORDERS_URL not found in .env file")
 	}
 
-	resp, err := http.Get(ordersURL)
+	resp, err := http.Get(executionReportURL)
 	if err != nil {
 		return nil, err
 	}
@@ -67,11 +67,11 @@ func FetchAllOrders() (*fixstruct.OrderResponse, error) {
 		return nil, err
 	}
 
-	var orders fixstruct.OrderResponse
-	err = json.Unmarshal(body, &orders)
+	var ordersExecutionReports fixstruct.OrdersExecutionReportResponse
+	err = json.Unmarshal(body, &ordersExecutionReports)
 	if err != nil {
 		return nil, err
 	}
 
-	return &orders, nil
+	return &ordersExecutionReports, nil
 }
