@@ -23,6 +23,6 @@ type Header struct {
 	SendingTime  string `json:"sendingTime"`
 }
 
-type Response struct {
+type OrderResponse struct {
 	Orders []Order `json:"Orders"`
 }
