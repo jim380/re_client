@@ -2,6 +2,7 @@ package executionreports
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -15,8 +16,7 @@ var CmdExecutionReportsAll = &cobra.Command{
 	Short: "Fetch and convert execution reports to FIX format",
 	Args:  cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
-
-		executionReports, err := queries.FetchAllExecutionRepots()
+		executionReports, err := queries.FetchAllExecutionReports()
 		if err != nil {
 			fmt.Println("Error:", err)
 			return
@@ -59,11 +59,13 @@ var CmdExecutionReportsAll = &cobra.Command{
 		if utils.OutputFile != "" {
 			dir := filepath.Dir(utils.OutputFile)
 			if _, err := os.Stat(dir); os.IsNotExist(err) {
-				os.MkdirAll(dir, 0755)
+				if err := os.MkdirAll(dir, 0o755); err != nil {
+					log.Fatalf("Error creating directory %s: %s", dir, err)
+				}
 			}
 		}
 		if utils.OutputFile != "" {
-			err := os.WriteFile(utils.OutputFile, []byte(outputText), 0644)
+			err := os.WriteFile(utils.OutputFile, []byte(outputText), 0o644)
 			if err != nil {
 				fmt.Println("Failed to write to file:", err)
 				return
