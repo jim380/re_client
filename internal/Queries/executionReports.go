@@ -21,7 +21,7 @@ func init() {
 	}
 }
 
-func FetchExecutionRepots(address string) (*fixstruct.OrdersExecutionReportResponse, error) {
+func FetchExecutionReports(address string) (*fixstruct.OrdersExecutionReportResponse, error) {
 	// Read API_URL from .env file
 	executionReportURL := os.Getenv("EXECUTIONREPORT_URL")
 	if executionReportURL == "" {
@@ -49,7 +49,7 @@ func FetchExecutionRepots(address string) (*fixstruct.OrdersExecutionReportRespo
 	return &ordersExecutionReports, nil
 }
 
-func FetchAllExecutionRepots() (*fixstruct.OrdersExecutionReportResponse, error) {
+func FetchAllExecutionReports() (*fixstruct.OrdersExecutionReportResponse, error) {
 	// Read API_URL from .env file
 	executionReportURL := os.Getenv("EXECUTIONREPORT_URL")
 	if executionReportURL == "" {
