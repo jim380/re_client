@@ -13,7 +13,7 @@ import (
 
 var CmdOrdersAll = &cobra.Command{
 	Use:   "orders",
-	Short: "Fetch and convert orders to FIX format",
+	Short: "Fetch and convert all orders to FIX format",
 	Args:  cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		orders, err := queries.FetchAllOrders()

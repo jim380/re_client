@@ -13,7 +13,7 @@ import (
 
 var CmdExecutionReportsAll = &cobra.Command{
 	Use:   "execution-reports",
-	Short: "Fetch and convert execution reports to FIX format",
+	Short: "Fetch and convert all execution reports to FIX format",
 	Args:  cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		executionReports, err := queries.FetchAllExecutionReports()
