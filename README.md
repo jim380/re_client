@@ -51,6 +51,32 @@ Available Commands
 
  8=FIX4.4|9=0|35=D|49=cosmos1tfrmhsw9hymfe7vfcxaly8xvrqtaaaxm9648ry|56=cosmosvaloper1zqgheeawp7cmqk27dgyctd80rd8ryhqs6la9wc|34=16801845|52=2023-08-31T10:36:14Z|11=08EC92BF1B03C1C5E07412B0254203C76118FA97F2B6CDBD91CCD62F02C5C5E3|55=uatom|54=2|44=2916090|59=1|
 
+Interpretation of the First Message
+
+8=FIX4.4: BeginString (Indicates the beginning of the message; the value is the FIX version, 4.4 in this case)
+
+9=0: BodyLength (Length of the message body, should actually be calculated)
+
+35=D: MsgType (Type of message, D indicates a New Order - Single)
+
+49=cosmos1nvcgd368m4pm5mm3ppzawhsq6grra4ejnppplx: SenderCompID (The ID of the message sender)
+
+56=cosmosvaloper1zqgheeawp7cmqk27dgyctd80rd8ryhqs6la9wc: TargetCompID (The ID of the message receiver)
+
+34=16801684: MsgSeqNum (Message sequence number, the blockchain height is used in this case)
+
+52=2023-08-31T10:19:49Z: SendingTime (Time the message was sent)
+
+11=07C038FC655EDDEBE0F5E99BAEB05E47FF2DD5FCFE422C4B14D0DF5078417693: ClOrdID (Client Order ID)
+
+55=uatom: Symbol for the financial instrument (cryptocurrency in this case)
+
+54=2: Side (The side of the market, 2 is for Sell)
+
+44=117401: Price (The price for the order)
+
+59=1: TimeInForce (The time in force for the order, 1 is for Good Till Cancel (GTC))
+
 # Contributing
 1. Fork the Project
 
