@@ -5,6 +5,10 @@ lint:
 
 build:
 	@echo "--> Building app"
-	go build -o app cmd/main.go
+	go build -o Re_client cmd/main.go
 
-.PHONY: lint build
+install: build
+	@echo "--> Installing app"
+	mv Re_client /usr/local/bin
+
+.PHONY: lint build install
