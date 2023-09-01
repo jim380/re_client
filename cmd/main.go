@@ -1,13 +1,14 @@
 package main
 
 import (
-	fixmessages "github.com/jim380/re_client/FIXMessages"
+	"github.com/jim380/re_client/FIXMessages/orders"
 	"github.com/spf13/cobra"
 )
 
 func main() {
 	var rootCmd = &cobra.Command{Use: "Re_client"}
 
-	rootCmd.AddCommand(fixmessages.CmdOrders)
+	rootCmd.AddCommand(orders.CmdOrders)
+	rootCmd.AddCommand(orders.CmdOrdersAll)
 	rootCmd.Execute()
 }

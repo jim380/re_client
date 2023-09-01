@@ -48,3 +48,30 @@ func FetchOrders(address string) (*fixstruct.OrderResponse, error) {
 
 	return &orders, nil
 }
+
+func FetchAllOrders() (*fixstruct.OrderResponse, error) {
+	// Read API_URL from .env file
+	ordersURL := os.Getenv("ORDERS_URL")
+	if ordersURL == "" {
+		return nil, errors.New("ORDERS_URL not found in .env file")
+	}
+
+	resp, err := http.Get(ordersURL)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	var orders fixstruct.OrderResponse
+	err = json.Unmarshal(body, &orders)
+	if err != nil {
+		return nil, err
+	}
+
+	return &orders, nil
+}

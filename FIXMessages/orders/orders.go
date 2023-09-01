@@ -1,4 +1,4 @@
-package fixmessages
+package orders
 
 import (
 	"fmt"
@@ -6,13 +6,12 @@ import (
 	"path/filepath"
 
 	queries "github.com/jim380/re_client/internal/Queries"
+	"github.com/jim380/re_client/utils"
 	"github.com/spf13/cobra"
 )
 
-var outputFile string
-
 var CmdOrders = &cobra.Command{
-	Use:   "orders [address]",
+	Use:   "order [address]",
 	Short: "Fetch and convert orders to FIX format",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
@@ -45,19 +44,19 @@ var CmdOrders = &cobra.Command{
 		}
 
 		// Ensure the folder exists
-		if outputFile != "" {
-			dir := filepath.Dir(outputFile)
+		if utils.OutputFile != "" {
+			dir := filepath.Dir(utils.OutputFile)
 			if _, err := os.Stat(dir); os.IsNotExist(err) {
 				os.MkdirAll(dir, 0755)
 			}
 		}
-		if outputFile != "" {
-			err := os.WriteFile(outputFile, []byte(outputText), 0644) // <-- Changed this line
+		if utils.OutputFile != "" {
+			err := os.WriteFile(utils.OutputFile, []byte(outputText), 0644)
 			if err != nil {
 				fmt.Println("Failed to write to file:", err)
 				return
 			}
-			fmt.Printf("Output saved to %s\n", outputFile)
+			fmt.Printf("Output saved to %s\n", utils.OutputFile)
 		} else {
 			fmt.Print(outputText)
 		}
@@ -65,5 +64,5 @@ var CmdOrders = &cobra.Command{
 }
 
 func init() {
-	CmdOrders.Flags().StringVarP(&outputFile, "output", "o", "", "Output file")
+	CmdOrders.Flags().StringVarP(&utils.OutputFile, "output", "o", "", "Output file")
 }
