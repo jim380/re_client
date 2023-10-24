@@ -8,4 +8,5 @@ type Header struct {
 	TargetCompID string `json:"targetCompID"`
 	MsgSeqNum    string `json:"msgSeqNum"`
 	SendingTime  string `json:"sendingTime"`
+	ChainID      string `json:"chainID"`
 }
