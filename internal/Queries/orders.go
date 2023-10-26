@@ -21,14 +21,18 @@ func init() {
 	}
 }
 
-func FetchOrders(address string) (*fixstruct.OrderResponse, error) {
+// FetchOrders retrieves all orders for a given chainID with the corresponding address.
+// It sends a GET request to the ORDERS_URL with the specified chainID and address,
+// reads the response body, and unmarshals it into the OrderResponse struct.
+// The function returns the orders and any error encountered.
+func FetchOrders(chainID, address string) (*fixstruct.OrderResponse, error) {
 	// Read API_URL from .env file
 	ordersURL := os.Getenv("ORDERS_URL")
 	if ordersURL == "" {
 		return nil, errors.New("ORDERS_URL not found in .env file")
 	}
 
-	url := fmt.Sprintf("%s/%s", ordersURL, address)
+	url := fmt.Sprintf("%s/%s/%s", ordersURL, chainID, address)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -49,14 +53,19 @@ func FetchOrders(address string) (*fixstruct.OrderResponse, error) {
 	return &orders, nil
 }
 
-func FetchAllOrders() (*fixstruct.OrderResponse, error) {
+// FetchAllOrders retrieves all orders for a given chainID.
+// It sends a GET request to the ORDERS_URL with the specified chainID,
+// reads the response body, and unmarshals it into the OrderResponse struct.
+// The function returns the orders and any error encountered.
+func FetchAllOrders(chainID string) (*fixstruct.OrderResponse, error) {
 	// Read API_URL from .env file
 	ordersURL := os.Getenv("ORDERS_URL")
 	if ordersURL == "" {
 		return nil, errors.New("ORDERS_URL not found in .env file")
 	}
 
-	resp, err := http.Get(ordersURL)
+	url := fmt.Sprintf("%s/%s", ordersURL, chainID)
+	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
 	}
