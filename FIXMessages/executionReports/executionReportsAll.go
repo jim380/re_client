@@ -12,11 +12,13 @@ import (
 )
 
 var CmdExecutionReportsAll = &cobra.Command{
-	Use:   "execution-reports",
+	Use:   "execution-reports [chainID]",
 	Short: "Fetch and convert all execution reports to FIX format",
-	Args:  cobra.ExactArgs(0),
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		executionReports, err := queries.FetchAllExecutionReports()
+		argChainID := args[0]
+
+		executionReports, err := queries.FetchAllExecutionReports(argChainID)
 		if err != nil {
 			fmt.Println("Error:", err)
 			return

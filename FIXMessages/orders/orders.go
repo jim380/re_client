@@ -12,13 +12,14 @@ import (
 )
 
 var CmdOrders = &cobra.Command{
-	Use:   "order [address]",
+	Use:   "order [chainID] [address]",
 	Short: "Fetch and convert orders to FIX format",
-	Args:  cobra.ExactArgs(1),
+	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		address := args[0]
+		argChainID := args[0]
+		argAddress := args[1]
 
-		orders, err := queries.FetchOrders(address)
+		orders, err := queries.FetchOrders(argChainID, argAddress)
 		if err != nil {
 			fmt.Println("Error:", err)
 			return
