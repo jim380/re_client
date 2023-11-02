@@ -16,7 +16,6 @@ var CmdOrders = &cobra.Command{
 	Short: "Fetch and convert orders to FIX format",
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-
 		argChainID := args[0]
 		argAddress := args[1]
 
