@@ -13,7 +13,7 @@ import (
 
 var CmdExecutionReports = &cobra.Command{
 	Use:   "execution-report [chainID] [address]",
-	Short: "Fetch and convert execution reports to FIX format",
+	Short: "Fetch and convert an execution report to FIX format",
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		argChainID := args[0]

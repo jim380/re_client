@@ -1,4 +1,4 @@
-package orders
+package tradecapture
 
 import (
 	"fmt"
@@ -11,15 +11,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var CmdOrders = &cobra.Command{
-	Use:   "order [chainID] [address]",
-	Short: "Fetch and convert an order to FIX format",
+var CmdTradeCapture = &cobra.Command{
+	Use:   "trade-capture [chainID] [address]",
+	Short: "Fetch and convert a trade capture to FIX format",
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		argChainID := args[0]
 		argAddress := args[1]
 
-		orders, err := queries.FetchOrders(argChainID, argAddress)
+		tradeCaptures, err := queries.FetchTradeCapture(argChainID, argAddress)
 		if err != nil {
 			fmt.Println("Error:", err)
 			return
@@ -27,22 +27,9 @@ var CmdOrders = &cobra.Command{
 
 		var outputText string
 
-		for _, order := range orders.Orders {
-			orderMessage := fmt.Sprintf("8=%s|9=%s|35=%s|49=%s|56=%s|34=%s|52=%s|11=%s|55=%s|54=%s|44=%s|59=%s|",
-				order.Header.BeginString,
-				order.Header.BodyLength,
-				order.Header.MsgType,
-				order.Header.SenderCompID,
-				order.Header.TargetCompID,
-				order.Header.MsgSeqNum,
-				order.Header.SendingTime,
-				order.ClOrdID,
-				order.Symbol,
-				order.Side,
-				order.Price,
-				order.TimeInForce)
-
-			outputText += " " + orderMessage + "\n\n"
+		for _, tradeCapture := range tradeCaptures.TradeCapture {
+			tradeCaptureMessage := GenerateTradeCaptureMessage(tradeCapture)
+			outputText += " " + tradeCaptureMessage + "\n\n"
 		}
 
 		// Ensure the folder exists
@@ -68,5 +55,5 @@ var CmdOrders = &cobra.Command{
 }
 
 func init() {
-	CmdOrders.Flags().StringVarP(&utils.OutputFile, "output", "o", "", "Output file")
+	CmdTradeCapture.Flags().StringVarP(&utils.OutputFile, "output", "o", "", "Output file")
 }
