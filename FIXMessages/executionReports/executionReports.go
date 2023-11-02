@@ -12,13 +12,15 @@ import (
 )
 
 var CmdExecutionReports = &cobra.Command{
-	Use:   "execution-report [address]",
+	Use:   "execution-report [chainID] [address]",
 	Short: "Fetch and convert execution reports to FIX format",
-	Args:  cobra.ExactArgs(1),
+	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		address := args[0]
 
-		executionReports, err := queries.FetchExecutionReports(address)
+		argChainID := args[0]
+		argAddress := args[1]
+
+		executionReports, err := queries.FetchExecutionReports(argChainID, argAddress)
 		if err != nil {
 			fmt.Println("Error:", err)
 			return
