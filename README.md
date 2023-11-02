@@ -34,16 +34,22 @@ Re_client
 
 Available Commands
 ```
- Re_client order [address] [flags]
+ Re_client order [chainID] [address] [flags]
 ```
 ```
- Re_client orders [flags]
+ Re_client orders [chainID] [flags]
 ```
 ```
- Re_client execution-report [address] [flags]
+ Re_client execution-report [chainID] [address] [flags]
 ```
 ```
- Re_client execution-reports [flags]
+ Re_client execution-reports [chainID] [flags]
+```
+```
+ Re_client trade-capture [chainID] [address] [flags]
+```
+```
+ Re_client trade-captures [chainID] [flags]
 ```
 
 # [Sample of generated FIX messages](https://github.com/jim380/re_client/tree/main/RawFixMessages)
