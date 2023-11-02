@@ -1,7 +1,8 @@
 package fixstruct
 
 type TradeCapture struct {
-	SessionID          string `json:"sessionID"`
+	SessionID string `json:"sessionID"`
+
 	TradeCaptureReport struct {
 		Header               Header  `json:"header"`
 		TradeReportID        string  `json:"tradeReportID"`
@@ -27,6 +28,7 @@ type TradeCapture struct {
 		SettlDate            string  `json:"settlDate"`
 		Trailer              Trailer `json:"trailer"`
 	} `json:"tradeCaptureReport"`
+
 	TradeCaptureReportAcknowledgement struct {
 		Header                  Header  `json:"header"`
 		TradeReportID           string  `json:"tradeReportID"`
@@ -44,7 +46,15 @@ type TradeCapture struct {
 		Text                    string  `json:"text"`
 		Trailer                 Trailer `json:"trailer"`
 	} `json:"tradeCaptureReportAcknowledgement"`
-	TradeCaptureReportRejection interface{} `json:"tradeCaptureReportRejection"`
+
+	TradeCaptureReportRejection *struct {
+		Header                  Header  `json:"header"`
+		TradeReportID           string  `json:"tradeReportID"`
+		TradeReportRejectReason string  `json:"tradeReportRejectReason"`
+		TradeReportRejectRefID  string  `json:"tradeReportRejectRefID"`
+		Text                    string  `json:"text"`
+		Trailer                 Trailer `json:"trailer"`
+	} `json:"tradeCaptureReportRejection"`
 }
 
 type Pagination struct {
